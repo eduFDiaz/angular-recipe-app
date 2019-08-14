@@ -9,6 +9,7 @@ import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.com
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
+import { NgxPopper } from 'angular-popper';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyMaterialModule } from './material';
@@ -18,6 +19,7 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { SpinnerComponent } from './myspinner/myspinner.component';
+import { DropdownDirective } from './shared/dropdown.directive';
 registerLocaleData(en);
 
 @NgModule({
@@ -30,13 +32,15 @@ registerLocaleData(en);
     RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MyMaterialModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    NgxPopper
   ],
   providers: [ { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
