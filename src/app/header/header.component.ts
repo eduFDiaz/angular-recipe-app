@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 
 @Component({
     selector: 'app-header',
@@ -6,6 +6,16 @@ import { Component } from "@angular/core";
     styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent{
+export class HeaderComponent implements OnInit{
+    //The event will be accessible from outside (app parent component)
+    @Output() featureSelected = new EventEmitter<string>();
 
+    ngOnInit(){
+    }
+
+    onSelect(feature: string){
+        //featureSelected will emit either those two strings
+        //that are given at the links at the bar
+        this.featureSelected.emit(feature);
+    }
 }
