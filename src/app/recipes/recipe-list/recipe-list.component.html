@@ -7,25 +7,8 @@
 <hr />
 <div class="row">
   <div class="col col-xs-12">
-    <a
-      class="list-group-item clearfix"
-      *ngFor="let recipe of recipes; let i = index"
-      [class.active]="i == 0"
-    >
-      <div class="float-left">
-        <h4>{{ recipe.name }}</h4>
-        <p>{{ recipe.description }}</p>
-      </div>
-      <span class="float-right">
-        <img
-          [src]="recipe.imagePath"
-          alt="{{ recipe.name }}"
-          class="img-fluid"
-          style="max-height: 80px;"
-        />
-      </span>
-    </a>
-    <hr />
-    <app-recipe-item></app-recipe-item>
+    <app-recipe-item
+      *ngFor="let recipeEl of recipes"
+      [recipe]="recipeEl"></app-recipe-item>
   </div>
 </div>
