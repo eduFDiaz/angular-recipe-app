@@ -9,7 +9,8 @@
             <app-recipe-detail *ngIf="selectedRecipe; else infoText"
             [recipe]="selectedRecipe"></app-recipe-detail>
             <ng-template #infoText>
-              <p>Please select a Recipe!</p>
+              <app-nz-demo-spin-tip></app-nz-demo-spin-tip>
+              <!-- <mat-spinner></mat-spinner> -->
             </ng-template>
         </div>
     </div>

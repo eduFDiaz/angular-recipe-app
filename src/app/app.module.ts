@@ -10,6 +10,16 @@ import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-it
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MyMaterialModule } from './material';
+import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+
+// config angular i18n //
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+import { SpinnerComponent } from './myspinner/myspinner.component';
+registerLocaleData(en);
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,12 +29,16 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
     RecipeDetailComponent,
     RecipeItemComponent,
     ShoppingListComponent,
-    ShoppingEditComponent
+    ShoppingEditComponent,
+    SpinnerComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    MyMaterialModule,
+    NgZorroAntdModule
   ],
-  providers: [],
+  providers: [ { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
