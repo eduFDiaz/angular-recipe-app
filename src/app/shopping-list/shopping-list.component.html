@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-xs-10">
         <app-shopping-edit></app-shopping-edit>
-        <hr>
-        <ul class="list-group">
+        <ul style="margin: 10px;" class="list-group">
+            <h4 *ngIf="ingredients.length === 0">Your shopping list empty</h4>
             <a *ngFor="let ingredient of ingredients; let i=index" class="list-group-item" style="cursor: pointer;">{{ ingredient.name}} ({{ingredient.amount}})</a>
         </ul>
     </div>

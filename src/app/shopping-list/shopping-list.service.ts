@@ -3,10 +3,7 @@ import { EventEmitter } from '@angular/core';
 
 export class ShoppingListService {
   ingredientsChanged = new EventEmitter<Ingredient[]>();
-  private ingredients: Ingredient[] = [
-    new Ingredient('lamb ribs', 3),
-    new Ingredient('potatoes', 5)
-  ];
+  private ingredients: Ingredient[] = [];
 
   getIngredients() {
     // Don't wanna return a reference

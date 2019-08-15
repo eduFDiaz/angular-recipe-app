@@ -1,14 +1,13 @@
-<hr />
 <div class="row">
-  <div class="col col-xs-12">
+  <div style="margin: 10px;" class="col col-12">
     <button class="btn btn-success">New Recipe</button>
   </div>
 </div>
-<hr />
 <div class="row">
-  <div class="col col-xs-12">
+  <div class="col col-12">
     <app-recipe-item
-      *ngFor="let recipeEl of recipes; let i of index;"
-      [recipe]="recipeEl"></app-recipe-item>
+      *ngFor="let recipeEl of recipes; let i; of: index"
+      [recipe]="recipeEl"
+    ></app-recipe-item>
   </div>
 </div>
