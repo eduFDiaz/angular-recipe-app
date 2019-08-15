@@ -1,3 +1,4 @@
+import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -42,7 +43,7 @@ registerLocaleData(en);
     NgZorroAntdModule,
     NgxPopper
   ],
-  providers: [ { provide: NZ_I18N, useValue: en_US }],
+  providers: [ ShoppingListService, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
