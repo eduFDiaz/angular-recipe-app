@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app-routing.module';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -21,6 +22,7 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { SpinnerComponent } from './myspinner/myspinner.component';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -34,13 +36,15 @@ registerLocaleData(en);
     ShoppingListComponent,
     ShoppingEditComponent,
     SpinnerComponent,
-    DropdownDirective
+    DropdownDirective,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MyMaterialModule,
     NgZorroAntdModule,
+    AppRoutingModule,
     NgxPopper
   ],
   providers: [ ShoppingListService, { provide: NZ_I18N, useValue: en_US }],
