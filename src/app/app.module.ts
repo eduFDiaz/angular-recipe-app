@@ -24,6 +24,7 @@ import { SpinnerComponent } from './myspinner/myspinner.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -39,7 +40,9 @@ registerLocaleData(en);
     SpinnerComponent,
     DropdownDirective,
     PageNotFoundComponent,
-    RecipeStartComponent
+    RecipeStartComponent,
+    RecipeEditComponent,
+    RecipeEditComponent
   ],
   imports: [
     BrowserModule,

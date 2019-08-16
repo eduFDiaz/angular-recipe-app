@@ -7,12 +7,18 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 
+// If new and :id childs were inverted that would make anglular take new as id
+// ant that would break the app, the order of the routes is very important
+// that's why the 404 PageNotFoundComponent goes the last one
 const appRoutes: Routes = [
   {path: '', redirectTo: 'recipes', pathMatch: 'full'},
   {path: 'recipes', component: RecipesComponent, children: [
     {path: '', component: RecipeStartComponent},
+    {path: 'new', component: RecipeEditComponent},
     {path: ':id', component: RecipeDetailComponent},
+    {path: ':id/edit', component: RecipeEditComponent},
   ]},
   {path: 'shopping-list', component: ShoppingListComponent},
   { path: '**', component: PageNotFoundComponent }
