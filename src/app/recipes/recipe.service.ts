@@ -32,7 +32,14 @@ export class RecipeService {
   ];
 
   getRecipes() {
-    // Slice returns an exact copy of the array, not a reference
+    // Returns all the recipes, we used Slice returns
+    // an exact copy of the array, not a reference
     return this.recipes.slice();
+  }
+
+  getRecipe(index: number) {
+    // Returns one recipe, we used Slice returns
+    // an exact copy of the array, not a reference
+    return this.recipes[index];
   }
 }

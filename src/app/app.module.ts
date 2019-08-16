@@ -23,6 +23,7 @@ import en from '@angular/common/locales/en';
 import { SpinnerComponent } from './myspinner/myspinner.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
+import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -37,7 +38,8 @@ registerLocaleData(en);
     ShoppingEditComponent,
     SpinnerComponent,
     DropdownDirective,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RecipeStartComponent
   ],
   imports: [
     BrowserModule,
