@@ -1,5 +1,5 @@
 import { Ingredient } from './../../shared/ingredient.model';
-import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 
 import { ShoppingListService } from './../shopping-list.service';
 
@@ -18,8 +18,12 @@ export class ShoppingEditComponent implements OnInit {
   }
 
   onAddItem() {
+    // This method returns the ingredient amount and it's name
     const ingName = this.nameInputRef.nativeElement.value;
     const ingAmount = this.amountInputRef.nativeElement.value;
+    if (ingName === '' || ingAmount === '') {
+      return;
+    }
     const newIngredient = new Ingredient(ingName, ingAmount);
     this.shoppingListService.addIngredient(newIngredient);
   }
