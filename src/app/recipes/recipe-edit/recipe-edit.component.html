@@ -1,1 +1,6 @@
 <p>recipe-edit works!</p>
+<div *ngIf="editMode == true">
+  <h4>Edit mode</h4>
+  <p>Recipe: {{ id }}</p>
+</div>
+<p *ngIf="editMode == false">New mode</p>

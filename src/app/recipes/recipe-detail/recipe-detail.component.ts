@@ -3,7 +3,7 @@ import { Ingredient } from './../../shared/ingredient.model';
 import { ShoppingListService } from './../../shopping-list/shopping-list.service';
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -16,7 +16,8 @@ export class RecipeDetailComponent implements OnInit {
 
   constructor(private shoppingListService: ShoppingListService,
               private recipeService: RecipeService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     // The + symbol is added to convert the string to a number
@@ -29,9 +30,14 @@ export class RecipeDetailComponent implements OnInit {
     );
     console.log(this.id, this.recipe);
   }
-  onAddToShoppingList($event) {
+  onAddToShoppingList(event) {
     this.recipe.ingredients.slice().forEach(ingredient => {
       this.shoppingListService.addIngredient(ingredient);
     });
+  }
+
+  onEditRecipe(event) {
+    // The route eas already /recipe/1 we add /edit to it and voila!
+    this.router.navigate(['edit'], {relativeTo: this.route});
   }
 }
