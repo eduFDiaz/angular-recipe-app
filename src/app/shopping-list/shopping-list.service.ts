@@ -23,4 +23,11 @@ export class ShoppingListService {
     this.ingredients.push(ingredient);
     this.ingredientsChanged.next(this.ingredients.slice());
   }
+
+  updateIngredient(index: number, newIngredient: Ingredient) {
+    // We didn't use a reference to ingredients
+    // so we have to emit a signal when it changes
+    this.ingredients[index] = newIngredient;
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
 }

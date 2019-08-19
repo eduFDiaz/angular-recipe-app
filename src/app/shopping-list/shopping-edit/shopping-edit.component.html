@@ -1,6 +1,6 @@
 <div style="margin: 10px;" class="row">
   <div class="col"><!-- Make a reference to this html element and pass it to the function -->
-    <form (ngSubmit)="onAddItem(f)" #f="ngForm">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="form-row">
         <div class="col-8">
           <div class="form-group">
@@ -34,9 +34,9 @@
       <div class="container">
         <div class="clearfix">
           <div class="btn-group inline col">
-            <button [disabled]="f.invalid" type="submit" class="btn btn-success">Add</button>
+            <button [disabled]="f.invalid" type="submit" class="btn btn-success">{{ editMode ? "Update" : "Add" }}</button>
             <button type="button" class="btn btn-danger">Delete</button>
-            <button type="button" class="btn btn-primary">Clear</button>
+            <button type="button" class="btn btn-primary" (click)="onClear()" >Clear</button>
           </div>
         </div>
       </div>
