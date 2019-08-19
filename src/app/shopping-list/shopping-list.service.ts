@@ -3,11 +3,18 @@ import { Subject } from 'rxjs';
 
 export class ShoppingListService {
   ingredientsChanged = new Subject<Ingredient[]>();
+  startedEditing = new Subject<number>();
+
   private ingredients: Ingredient[] = [];
 
   getIngredients() {
     // Don't wanna return a reference
     return this.ingredients.slice();
+  }
+
+  getIngredient(index: number) {
+    // Don't wanna return a reference
+    return this.ingredients[index];
   }
 
   addIngredient(ingredient: Ingredient) {

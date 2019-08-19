@@ -28,6 +28,14 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     );
   }
 
+  onEditItem(index: number) {
+    // Here we change the value to which the observer is listening using
+    // the next method so another component susbscribed to it can be triggered
+    // at the shopping-edit component let's say
+    this.shoppingListService.startedEditing.next(index);
+    console.log(index);
+  }
+
   ngOnDestroy() {
     this.ingChangedSubs.unsubscribe();
   }
