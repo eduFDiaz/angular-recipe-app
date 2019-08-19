@@ -21,6 +21,9 @@ export class RecipeDetailComponent implements OnInit {
 
   ngOnInit() {
     // The + symbol is added to convert the string to a number
+    // because we are using the suscribe function to watch for changes in params
+    // angular will the clean up, althoug you need to implement the clean up
+    // if you use your own Observables
     this.route.params
     .subscribe(
       (params: Params) => {
