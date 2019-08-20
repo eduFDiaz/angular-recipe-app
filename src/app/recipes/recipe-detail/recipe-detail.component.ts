@@ -32,14 +32,18 @@ export class RecipeDetailComponent implements OnInit {
       }
     );
   }
-  onAddToShoppingList(event) {
+  onAddToShoppingList() {
     this.recipe.ingredients.slice().forEach(ingredient => {
       this.shoppingListService.addIngredient(ingredient);
     });
   }
 
-  onEditRecipe(event) {
-    // The route eas already /recipe/1 we add /edit to it and voila!
+  onEditRecipe() {
+    // The route was already /recipe/1 we add /edit to it and voila!
     this.router.navigate(['edit'], {relativeTo: this.route});
+  }
+
+  onDeleteRecipe() {
+    this.recipeService.deleteRecipe(this.id);
   }
 }

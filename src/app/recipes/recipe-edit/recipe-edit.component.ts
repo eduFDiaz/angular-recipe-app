@@ -1,8 +1,10 @@
+import { Ingredient } from './../../shared/ingredient.model';
+import { Recipe } from './../recipe.model';
 import { RecipeService } from './../recipe.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
-import { Ingredient } from 'src/app/shared/ingredient.model';
+import { relative } from 'path';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,7 +16,9 @@ export class RecipeEditComponent implements OnInit {
   editMode = false;
   recipeForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) {
+  constructor(private route: ActivatedRoute,
+              private recipeService: RecipeService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -51,7 +55,7 @@ export class RecipeEditComponent implements OnInit {
               amount: new FormControl(
                 ingredient.amount,
                 [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)]
-                )
+              )
             })
           );
         }
@@ -61,12 +65,31 @@ export class RecipeEditComponent implements OnInit {
     this.recipeForm = new FormGroup({
       name: new FormControl(recipeName, [Validators.required]),
       imagePath: new FormControl(recipeImagePath, [Validators.required]),
-      description: new FormControl(recipeDescription, [Validators.required] ),
+      description: new FormControl(recipeDescription, [Validators.required]),
       ingredients: recipeIngredients
     });
   }
 
   onSubmit() {
+    // This method adds or updates a recipe deping
+    // on the value of editMode
+    // const newRecipe = new Recipe(
+    //   this.recipeForm.value.name,
+    //   this.recipeForm.value.description,
+    //   this.recipeForm.value.imagePath,
+    //   this.recipeForm.value.Ingredients
+    // );
+
+    if (this.editMode) {
+      // this.recipeService.updateRecipe(newRecipe, this.id);
+      this.recipeService.updateRecipe(this.recipeForm.value, this.id);
+      this.recipeForm.reset();
+    } else {
+      // this.recipeService.addRecipe(newRecipe);
+      this.recipeService.addRecipe(this.recipeForm.value);
+      this.recipeForm.reset();
+    }
+    this.onCancel();
   }
 
   onAddIngredient() {
@@ -77,5 +100,9 @@ export class RecipeEditComponent implements OnInit {
           [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)])
       })
     );
+  }
+
+  onCancel() {
+    this.router.navigate(['../'], { relativeTo: this.route});
   }
 }
