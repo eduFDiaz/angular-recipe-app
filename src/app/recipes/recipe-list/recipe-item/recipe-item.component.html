@@ -5,7 +5,7 @@ style="margin: 1px;"
 routerLinkActive="active">
   <div class="float-left">
     <h5>{{ recipe.name }}</h5>
-    <p>{{ recipe.description }}</p>
+    <p>{{ recipe.description | shorten:25 }}</p>
   </div>
   <span class="float-right">
     <img

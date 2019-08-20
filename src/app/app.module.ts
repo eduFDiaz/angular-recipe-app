@@ -1,3 +1,4 @@
+import { ShortenPipe } from './shared/shorten.pipe';
 import { RecipeService } from './recipes/recipe.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
@@ -44,7 +45,8 @@ registerLocaleData(en);
     PageNotFoundComponent,
     RecipeStartComponent,
     RecipeEditComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    ShortenPipe
   ],
   imports: [
     FormsModule,
