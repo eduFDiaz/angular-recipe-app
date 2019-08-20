@@ -1,3 +1,4 @@
+import { RecipeService } from './recipes/recipe.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -55,7 +56,7 @@ registerLocaleData(en);
     AppRoutingModule,
     NgxPopper
   ],
-  providers: [ ShoppingListService, { provide: NZ_I18N, useValue: en_US }],
+  providers: [ ShoppingListService, RecipeService, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
