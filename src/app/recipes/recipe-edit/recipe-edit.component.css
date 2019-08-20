@@ -1,0 +1,8 @@
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched{
+  border: 2px solid red;
+}

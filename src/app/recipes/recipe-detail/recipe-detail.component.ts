@@ -31,7 +31,6 @@ export class RecipeDetailComponent implements OnInit {
         this.recipe = this.recipeService.getRecipe(this.id);
       }
     );
-    console.log(this.id, this.recipe);
   }
   onAddToShoppingList(event) {
     this.recipe.ingredients.slice().forEach(ingredient => {
