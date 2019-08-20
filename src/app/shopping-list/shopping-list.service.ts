@@ -5,7 +5,10 @@ export class ShoppingListService {
   ingredientsChanged = new Subject<Ingredient[]>();
   startedEditing = new Subject<number>();
 
-  private ingredients: Ingredient[] = [];
+  private ingredients: Ingredient[] = [
+    new Ingredient('Bread', 1),
+    new Ingredient('Mayo', 2)
+  ];
 
   getIngredients() {
     // Don't wanna return a reference
@@ -28,6 +31,13 @@ export class ShoppingListService {
     // We didn't use a reference to ingredients
     // so we have to emit a signal when it changes
     this.ingredients[index] = newIngredient;
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
+  deleteIngredient(index: number) {
+    // We didn't use a reference to ingredients
+    // so we have to emit a signal when it changes
+    this.ingredients.splice(index, 1);
     this.ingredientsChanged.next(this.ingredients.slice());
   }
 }

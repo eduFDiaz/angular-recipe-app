@@ -35,8 +35,8 @@
         <div class="clearfix">
           <div class="btn-group inline col">
             <button [disabled]="f.invalid" type="submit" class="btn btn-success">{{ editMode ? "Update" : "Add" }}</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-            <button type="button" class="btn btn-primary" (click)="onClear()" >Clear</button>
+            <button *ngIf="editMode===true"  type="button" class="btn btn-danger" (click)="onDelete()">Delete</button>
+            <button type="button" class="btn btn-primary" (click)="onClear()">Clear</button>
           </div>
         </div>
       </div>
