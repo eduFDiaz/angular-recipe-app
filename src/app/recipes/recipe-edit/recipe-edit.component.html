@@ -19,10 +19,18 @@
         <div class="col">
           <div class="form-group">
             <label for="imagePath">Image URL</label>
-            <input formControlName="imagePath" type="text" id="imagePath" class="form-control" />
+            <input formControlName="imagePath" type="text" id="imagePath" class="form-control" #imagePath/>
           </div>
         </div>
       </div>
+      <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="imagePath">Image</label>
+              <img class="img-fluid" [src]="imagePath.value">
+            </div>
+          </div>
+        </div>
       <div class="row">
         <div class="col">
           <img class="img-fluid;" src="" alt="" />
