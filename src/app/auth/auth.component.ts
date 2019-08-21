@@ -1,4 +1,6 @@
+import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
+import { getMaxListeners } from 'cluster';
 
 @Component({
   selector: 'app-auth',
@@ -7,8 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AuthComponent {
   isLoginMode = true;
+  email = 'fernandez9000@gmail.com';
+  password = '123456';
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
+  }
+
+  onSubmit(form: NgForm) {
+    console.log(form.value);
+    form.reset();
   }
 }
