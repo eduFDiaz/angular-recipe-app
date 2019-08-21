@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -28,6 +29,7 @@ import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.co
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { from } from 'rxjs';
 registerLocaleData(en);
 
 @NgModule({
@@ -56,9 +58,10 @@ registerLocaleData(en);
     MyMaterialModule,
     NgZorroAntdModule,
     AppRoutingModule,
-    NgxPopper
+    NgxPopper,
+    HttpClientModule
   ],
-  providers: [ ShoppingListService, RecipeService, { provide: NZ_I18N, useValue: en_US }],
+  providers: [ShoppingListService, RecipeService, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
