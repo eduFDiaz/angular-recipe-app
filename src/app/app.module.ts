@@ -29,7 +29,7 @@ import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.co
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { from } from 'rxjs';
+import { AuthComponent } from './auth/auth.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -48,6 +48,7 @@ registerLocaleData(en);
     RecipeStartComponent,
     RecipeEditComponent,
     RecipeEditComponent,
+    AuthComponent,
     ShortenPipe
   ],
   imports: [
