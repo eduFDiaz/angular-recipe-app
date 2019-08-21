@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   @Output() featureSelected = new EventEmitter<string>();
 
   ngOnInit() {
-    this.onFecthData();
+    //this.onFecthData();
   }
 
   constructor(private dataStorageService: DataStorageService) {}
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
   onFecthData() {
     console.log('[Header] Fetching data:');
-    this.dataStorageService.fetchRecipes();
+    this.dataStorageService.fetchRecipes().subscribe();
   }
   onSaveData() {
     console.log('[Header] Saving data:');
