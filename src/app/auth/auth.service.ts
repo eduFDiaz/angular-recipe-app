@@ -24,8 +24,11 @@ export class AuthService {
   // after they emited a new value with next
   user = new BehaviorSubject<User>(null);
 
+  // Just to make the code more portable for the future
   API_KEY = 'AIzaSyB9VW0aJhlEHxlqjCWa9ynH9Kr-nBm1vAU';
   httpParams = new HttpParams().append('key', this.API_KEY);
+
+  private tokenExpirationTimer: any;
 
   signUp(email: string, password: string) {
     // This method signs in the user. The first js object goes in the payload
@@ -63,9 +66,7 @@ export class AuthService {
   }
 
   autoLogin() {
-    // After loading user from local storage as a string we converted
-    console.log('here');
-
+    // Used this object because the date because of the date
     const userData: {
       email: string,
       id: string,
@@ -84,14 +85,27 @@ export class AuthService {
 
     if (loadedUsr.token) {
       // Only if the token is valid this user will be used
+      const expirationDuration = new Date(userData._tokenEpirationDate).getTime() - new Date().getTime();
+      this.autoLogout(expirationDuration);
       this.user.next(loadedUsr);
     }
   }
 
   logout() {
     this.user.next(null);
-    localStorage.removeItem('userData');
     this.router.navigate(['/auth']);
+    localStorage.removeItem('userData');
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+  }
+
+  autoLogout(expirationDuration: number) {
+    // expirationDuration is the number of seconds*1000 until the token is invalid
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, 10000);
   }
 
   private handleAuthentication(email: string, localId: string, token: string, expiresIn: number) {
@@ -99,6 +113,7 @@ export class AuthService {
     const expirationDate = new Date( new Date().getTime() + +expiresIn * 1000);
     const user = new User(email, localId, token, expirationDate);
     this.user.next(user);
+    this.autoLogout(expiresIn * 1000);
 
     // Before saving to local storage the object has to be converted to a string
     localStorage.setItem('userData', JSON.stringify(user));
@@ -134,33 +149,3 @@ export class AuthService {
     return throwError(errorMessage);
   }
 }
-
-
-/* https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
-
-Property Name	Type	Description
-email	string	The email for the user to create.
-password	string	The password for the user to create.
-returnSecureToken	boolean	Whether or not to return an ID and refresh token. Should always be true. */
-
-/* idToken	string	A Firebase Auth ID token for the newly created user.
-email	string	The email for the newly created user.
-refreshToken	string	A Firebase Auth refresh token for the newly created user.
-expiresIn	string	The number of seconds in which the ID token expires.
-localId	string	The uid of the newly created user. */
-
-// https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
-
-// Request Body Payload
-// Property Name	Type	Description
-// email	string	The email the user is signing in with.
-// password	string	The password for the account.
-// returnSecureToken	boolean	Whether or not to return an ID and refresh token. Should always be true.
-// Response Payload
-// Property Name	Type	Description
-// idToken	string	A Firebase Auth ID token for the authenticated user.
-// email	string	The email for the authenticated user.
-// refreshToken	string	A Firebase Auth refresh token for the authenticated user.
-// expiresIn	string	The number of seconds in which the ID token expires.
-// localId	string	The uid of the authenticated user.
-// registered	boolean	Whether the email is for an existing account.
