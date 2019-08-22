@@ -44,9 +44,9 @@ export class AuthService {
         params: this.httpParams,
       }
     ).pipe(catchError(this.handleError),
-    tap( resData => {
-      this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
-    }));
+      tap(resData => {
+        this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
+      }));
   }
 
   login(email: string, password: string) {
@@ -60,9 +60,9 @@ export class AuthService {
         params: this.httpParams,
       }
     ).pipe(catchError(this.handleError),
-    tap( resData => {
-      this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
-    }));
+      tap(resData => {
+        this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
+      }));
   }
 
   autoLogin() {
@@ -71,23 +71,25 @@ export class AuthService {
       email: string,
       id: string,
       _token: string,
-      _tokenEpirationDate: string
-    } =  JSON.parse(localStorage.getItem('userData'));
+      __tokenExpirationDate: string
+    } = JSON.parse(localStorage.getItem('userData'));
 
     if (!userData) {
       return;
     }
 
-    const loadedUsr = new User(userData.email,
-                               userData.id,
-                               userData._token,
-                               new Date(userData._tokenEpirationDate));
+    const loadedUsr = new User(
+      userData.email,
+      userData.id,
+      userData._token,
+      new Date(userData.__tokenExpirationDate)
+    );
 
     if (loadedUsr.token) {
       // Only if the token is valid this user will be used
-      const expirationDuration = new Date(userData._tokenEpirationDate).getTime() - new Date().getTime();
-      this.autoLogout(expirationDuration);
       this.user.next(loadedUsr);
+      const expirationDuration = new Date(userData.__tokenExpirationDate).getTime() - new Date().getTime();
+      this.autoLogout(expirationDuration);
     }
   }
 
@@ -105,12 +107,12 @@ export class AuthService {
     // expirationDuration is the number of seconds*1000 until the token is invalid
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
-    }, 10000);
+    }, expirationDuration);
   }
 
   private handleAuthentication(email: string, localId: string, token: string, expiresIn: number) {
     // This function handles authentication changing the value of the user Subject
-    const expirationDate = new Date( new Date().getTime() + +expiresIn * 1000);
+    const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
     const user = new User(email, localId, token, expirationDate);
     this.user.next(user);
     this.autoLogout(expiresIn * 1000);
@@ -122,12 +124,12 @@ export class AuthService {
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error has ocurred!';
     if (!errorRes.error || !errorRes.error.error) {
-       return throwError(errorMessage);
+      return throwError(errorMessage);
     }
     switch (errorRes.error.error.message) {
       case 'INVALID_PASSWORD':
-          errorMessage = 'The password entered is not valid';
-          break;
+        errorMessage = 'The password entered is not valid';
+        break;
       case 'EMAIL_NOT_FOUND':
         errorMessage = 'No user is registered with the email entered';
         break;
