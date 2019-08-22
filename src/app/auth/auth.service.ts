@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
-import { throwError, Subject } from 'rxjs';
+import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 
 export interface AuthResponseData {
@@ -17,7 +17,10 @@ export interface AuthResponseData {
 export class AuthService {
   constructor(private http: HttpClient) { }
 
-  user = new Subject<User>(); // Subject to emit changes on type User
+  // This type of subject gives subscribers the chance of
+  // reading its properties even when the subscription happened
+  // after they emited a new value with next
+  user = new BehaviorSubject<User>(null);
 
   API_KEY = 'AIzaSyB9VW0aJhlEHxlqjCWa9ynH9Kr-nBm1vAU';
   httpParams = new HttpParams().append('key', this.API_KEY);

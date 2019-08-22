@@ -1,10 +1,11 @@
+import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { ShortenPipe } from './shared/shorten.pipe';
 import { RecipeService } from './recipes/recipe.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -62,9 +63,14 @@ registerLocaleData(en);
     NgZorroAntdModule,
     AppRoutingModule,
     NgxPopper,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [ShoppingListService, RecipeService, { provide: NZ_I18N, useValue: en_US }],
+  providers: [
+    ShoppingListService,
+    RecipeService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    { provide: NZ_I18N, useValue: en_US }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
