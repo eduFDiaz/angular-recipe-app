@@ -1,6 +1,8 @@
+import { Subscription } from 'rxjs';
+import { AuthService } from './../auth/auth.service';
 import { DataStorageService } from './../shared/data-storage.service';
 
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,15 +10,22 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   // The event will be accessible from outside (app parent component)
   @Output() featureSelected = new EventEmitter<string>();
+  private userSubscription: Subscription;
+  isAuthenticated = false;
+
+  constructor(
+    private dataStorageService: DataStorageService,
+    private authService: AuthService) {}
 
   ngOnInit() {
-    // this.onFecthData();
+    this.userSubscription = this.authService.user.subscribe(user => {
+      this.isAuthenticated = !user ? false : true ;
+    });
+    this.onFecthData();
   }
-
-  constructor(private dataStorageService: DataStorageService) {}
 
   onSelect(feature: string) {
     // featureSelected will emit either those two strings
@@ -31,5 +40,8 @@ export class HeaderComponent implements OnInit {
   onSaveData() {
     console.log('[Header] Saving data:');
     this.dataStorageService.storeRecipes();
+  }
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 }

@@ -3,6 +3,7 @@ import { AuthService, AuthResponseData } from './auth.service';
 import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
 import { User } from './user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -10,9 +11,8 @@ import { User } from './user.model';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent {
-  constructor(private authService: AuthService) { }
-
-  user = new Subject<User>();
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   isLoginMode = true;
   isLoading = false;
@@ -40,6 +40,7 @@ export class AuthComponent {
     authObs.subscribe(response => {
       console.log(response);
       this.isLoading = false;
+      this.router.navigate(['/recipes']);
     }, errorRes => {
       this.error = errorRes;
       this.isLoading = false;
