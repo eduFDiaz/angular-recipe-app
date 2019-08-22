@@ -68,9 +68,13 @@ export class AuthService {
   }
 
   private handleAuthentication(email: string, localId: string, token: string, expiresIn: number) {
+    // This function handles authentication changing the value of the user Subject
     const expirationDate = new Date( new Date().getTime() + +expiresIn * 1000);
     const user = new User(email, localId, token, expirationDate);
     this.user.next(user);
+
+    // Before saving to local storage the object has to be converted to a string
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   private handleError(errorRes: HttpErrorResponse) {
