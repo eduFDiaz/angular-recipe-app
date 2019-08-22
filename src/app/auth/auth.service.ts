@@ -20,16 +20,17 @@ export class AuthService {
 
     let httpParams = new HttpParams();
     httpParams = httpParams.append('key', API_KEY);
-    // httpParams = httpParams.append('email', email);
-    // httpParams = httpParams.append('password', password);
-    // httpParams = httpParams.append('returnSecureToken', 'true');
 
+    // First js object goes in the payload section (email, password, returnSecureToken)
+    // The second js object has the query params that go in url (?key=AIzaSyB9VW0aJhlEHxlqjCWa9ynH9Kr)
     return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp',
       {
-        params: httpParams,
-        email: email,
-        password: password,
+        email,
+        password,
         returnSecureToken: 'true'
+      },
+      {
+        params: httpParams,
       }
     );
   }

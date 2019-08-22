@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
 
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent {
+  constructor(private authService: AuthService) { }
+
   isLoginMode = true;
   email = 'fernandez9000@gmail.com';
   password = '123456';
@@ -16,7 +19,16 @@ export class AuthComponent {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
+    if (this.isLoginMode) {
+      // ...
+    } else {
+      this.authService.signUp(form.value.email, form.value.password)
+        .subscribe(response => {
+          console.log(response);
+        }, error => {
+          console.log(error);
+        });
+    }
     form.reset();
   }
 }
