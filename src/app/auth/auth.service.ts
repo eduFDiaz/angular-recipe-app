@@ -62,8 +62,35 @@ export class AuthService {
     }));
   }
 
+  autoLogin() {
+    // After loading user from local storage as a string we converted
+    console.log('here');
+
+    const userData: {
+      email: string,
+      id: string,
+      _token: string,
+      _tokenEpirationDate: string
+    } =  JSON.parse(localStorage.getItem('userData'));
+
+    if (!userData) {
+      return;
+    }
+
+    const loadedUsr = new User(userData.email,
+                               userData.id,
+                               userData._token,
+                               new Date(userData._tokenEpirationDate));
+
+    if (loadedUsr.token) {
+      // Only if the token is valid this user will be used
+      this.user.next(loadedUsr);
+    }
+  }
+
   logout() {
     this.user.next(null);
+    localStorage.removeItem('userData');
     this.router.navigate(['/auth']);
   }
 
