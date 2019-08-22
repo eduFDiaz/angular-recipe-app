@@ -1,7 +1,8 @@
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AuthService, AuthResponseData } from './auth.service';
 import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
+import { User } from './user.model';
 
 @Component({
   selector: 'app-auth',
@@ -10,6 +11,8 @@ import { Component } from '@angular/core';
 })
 export class AuthComponent {
   constructor(private authService: AuthService) { }
+
+  user = new Subject<User>();
 
   isLoginMode = true;
   isLoading = false;
