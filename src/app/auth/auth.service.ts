@@ -1,30 +1,28 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
-interface AuthResponseData {
+export interface AuthResponseData {
   idToken: string;
   email: string;
   refreshToken: string;
   expiresIn: string;
   localId: string;
+  registered?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
   constructor(private http: HttpClient) { }
 
+  API_KEY = 'AIzaSyB9VW0aJhlEHxlqjCWa9ynH9Kr-nBm1vAU';
+  httpParams = new HttpParams().append('key', this.API_KEY);
+
   signUp(email: string, password: string) {
-    // This method signs in the user
-    const API_KEY = 'AIzaSyB9VW0aJhlEHxlqjCWa9ynH9Kr-nBm1vAU';
-
-    let httpParams = new HttpParams();
-    httpParams = httpParams.append('key', API_KEY);
-
-    // First js object goes in the payload section (email, password, returnSecureToken)
-    // The second js object has the query params that go in url (?key=AIzaSyB9VW0aJhlEHxlqjCWa9ynH9Kr)
+    // This method signs in the user. The first js object goes in the payload
+    // section (email, password, returnSecureToken). The second js object has
+    // the query params that go in url (?key=AIzaSyB9VW0aJhlEHxlqjCWa9ynH9Kr)
     return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp',
       {
         email,
@@ -32,28 +30,52 @@ export class AuthService {
         returnSecureToken: 'true'
       },
       {
-        params: httpParams,
+        params: this.httpParams,
       }
-    ).pipe(catchError(errorRes => {
-      let errorMessage = 'An unknown error has ocurred!';
-      if (!errorRes.error || !errorRes.error.error) {
-        return throwError(errorMessage);
+    ).pipe(catchError(this.handleError));
+  }
+
+  login(email: string, password: string) {
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword',
+      {
+        email,
+        password,
+        returnSecureToken: 'true'
+      },
+      {
+        params: this.httpParams,
       }
-      switch (errorRes.error.error.message) {
-        case 'EMAIL_EXISTS':
-          errorMessage = 'The email address is already in use by another account';
+    ).pipe(catchError(this.handleError));
+  }
+
+  private handleError(errorRes: HttpErrorResponse) {
+    let errorMessage = 'An unknown error has ocurred!';
+    if (!errorRes.error || !errorRes.error.error) {
+       return throwError(errorMessage);
+    }
+    switch (errorRes.error.error.message) {
+      case 'INVALID_PASSWORD':
+          errorMessage = 'The password entered is not valid';
           break;
-        case 'OPERATION_NOT_ALLOWED':
-          errorMessage = 'Password sign-in is disabled';
-          break;
-        case 'TOO_MANY_ATTEMPTS_TRY_LATER':
-          errorMessage = 'All requests from this device are blocked due to unusual activity. Try again later.';
-          break;
-        default:
-          break;
-      }
-      return throwError(errorMessage);
-    }));
+      case 'EMAIL_NOT_FOUND':
+        errorMessage = 'No user is registered with the email entered';
+        break;
+      case 'EMAIL_EXISTS':
+        errorMessage = 'The email address is already in use by another account';
+        break;
+      case 'OPERATION_NOT_ALLOWED':
+        errorMessage = 'Password sign-in is disabled';
+        break;
+      case 'TOO_MANY_ATTEMPTS_TRY_LATER':
+        errorMessage = 'All requests from this device are blocked due to unusual activity. Try again later.';
+        break;
+      case 'USER_DISABLED':
+        errorMessage = 'The user account has been disabled by an administrator.';
+        break;
+      default:
+        break;
+    }
+    return throwError(errorMessage);
   }
 }
 
@@ -70,3 +92,19 @@ email	string	The email for the newly created user.
 refreshToken	string	A Firebase Auth refresh token for the newly created user.
 expiresIn	string	The number of seconds in which the ID token expires.
 localId	string	The uid of the newly created user. */
+
+// https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
+
+// Request Body Payload
+// Property Name	Type	Description
+// email	string	The email the user is signing in with.
+// password	string	The password for the account.
+// returnSecureToken	boolean	Whether or not to return an ID and refresh token. Should always be true.
+// Response Payload
+// Property Name	Type	Description
+// idToken	string	A Firebase Auth ID token for the authenticated user.
+// email	string	The email for the authenticated user.
+// refreshToken	string	A Firebase Auth refresh token for the authenticated user.
+// expiresIn	string	The number of seconds in which the ID token expires.
+// localId	string	The uid of the authenticated user.
+// registered	boolean	Whether the email is for an existing account.
