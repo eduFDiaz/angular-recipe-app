@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth/auth.guard';
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -11,14 +12,14 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 import { RecipesResolverService } from './recipes/recipes-resolver.service';
 import { AuthComponent } from './auth/auth.component';
 
-// If new and :id childs were inverted that would make anglular take new as id
+// If new and :id children were inverted that would make angular take new as id
 // ant that would break the app, the order of the routes is very important
 // that's why the 404 PageNotFoundComponent goes the last one
 const appRoutes: Routes = [
   { path: '', redirectTo: 'recipes', pathMatch: 'full' },
   { path: 'auth', component: AuthComponent },
   {
-    path: 'recipes', component: RecipesComponent, children: [
+    path: 'recipes', component: RecipesComponent, canActivate: [AuthGuard] , children: [
       { path: '', component: RecipeStartComponent },
       { path: 'new', component: RecipeEditComponent },
       {
