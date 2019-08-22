@@ -11,6 +11,8 @@ export class AuthComponent {
   constructor(private authService: AuthService) { }
 
   isLoginMode = true;
+  isLoading = false;
+  error: string = null;
   email = 'fernandez9000@gmail.com';
   password = '123456';
 
@@ -19,14 +21,17 @@ export class AuthComponent {
   }
 
   onSubmit(form: NgForm) {
+    this.isLoading = true;
     if (this.isLoginMode) {
       // ...
     } else {
       this.authService.signUp(form.value.email, form.value.password)
         .subscribe(response => {
           console.log(response);
-        }, error => {
-          console.log(error);
+          this.isLoading = false;
+        }, errorRes => {
+          this.error = errorRes;
+          this.isLoading = false;
         });
     }
     form.reset();
