@@ -1,3 +1,4 @@
+import { SharedComponentsModule } from './../shared/shared-components.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -18,12 +19,13 @@ import { CommonModule } from '@angular/common';
     RecipeItemComponent,
     RecipeStartComponent,
     RecipeEditComponent,
-    RecipeEditComponent,
+    RecipeEditComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    SharedComponentsModule
   ],
   exports: [
     // Don't export the components if not needed outside

@@ -1,6 +1,5 @@
 import { RecipeModule } from './recipes/recipes.module';
 import { AuthInterceptor } from './auth/auth-interceptor.service';
-import { ShortenPipe } from './shared/shorten.pipe';
 import { RecipeService } from './recipes/recipe.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
@@ -19,24 +18,20 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 // config angular i18n //
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-import { SpinnerComponent } from './myspinner/myspinner.component';
-import { DropdownDirective } from './shared/dropdown.directive';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { SharedComponentsModule } from './shared/shared-components.module';
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SpinnerComponent,
-    DropdownDirective,
     PageNotFoundComponent,
     AuthComponent,
-    ShortenPipe,
     LoadingSpinnerComponent
   ],
   imports: [
@@ -50,7 +45,8 @@ registerLocaleData(en);
     NgxPopper,
     HttpClientModule,
     RecipeModule,
-    ShoppingListModule
+    ShoppingListModule,
+    SharedComponentsModule
   ],
   providers: [
     ShoppingListService,
