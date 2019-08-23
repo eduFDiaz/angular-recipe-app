@@ -1,3 +1,4 @@
+import { RecipeModule } from './recipes/recipes.module';
 import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { ShortenPipe } from './shared/shorten.pipe';
 import { RecipeService } from './recipes/recipe.service';
@@ -9,10 +10,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
-import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { NgxPopper } from 'angular-popper';
@@ -27,8 +24,6 @@ import en from '@angular/common/locales/en';
 import { SpinnerComponent } from './myspinner/myspinner.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
-import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
-import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
@@ -38,18 +33,11 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
     SpinnerComponent,
     DropdownDirective,
     PageNotFoundComponent,
-    RecipeStartComponent,
-    RecipeEditComponent,
-    RecipeEditComponent,
     AuthComponent,
     ShortenPipe,
     LoadingSpinnerComponent
@@ -64,6 +52,7 @@ registerLocaleData(en);
     AppRoutingModule,
     NgxPopper,
     HttpClientModule,
+    RecipeModule
   ],
   providers: [
     ShoppingListService,
