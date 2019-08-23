@@ -10,8 +10,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { NgxPopper } from 'angular-popper';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,14 +25,13 @@ import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
     SpinnerComponent,
     DropdownDirective,
     PageNotFoundComponent,
@@ -52,7 +49,8 @@ registerLocaleData(en);
     AppRoutingModule,
     NgxPopper,
     HttpClientModule,
-    RecipeModule
+    RecipeModule,
+    ShoppingListModule
   ],
   providers: [
     ShoppingListService,
