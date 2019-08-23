@@ -16,24 +16,20 @@ import { NZ_I18N, en_US } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthComponent } from './auth/auth.component';
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { FormsModule } from '@angular/forms';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedComponentsModule } from './shared/shared-components.module';
+import { AuthModule } from './auth/auth.module';
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    PageNotFoundComponent,
-    AuthComponent,
-    LoadingSpinnerComponent
+    PageNotFoundComponent
   ],
   imports: [
     FormsModule,
-    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -42,9 +38,10 @@ registerLocaleData(en);
     RecipeModule,
     ShoppingListModule,
     SharedComponentsModule,
+    AuthModule,
     CoreModule
   ],
-  providers: [
+  providers: [// The rest of the services are provided in CoreModule
     { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent]
