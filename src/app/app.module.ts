@@ -1,11 +1,9 @@
+import { CoreModule } from './core.module';
 import { RecipeModule } from './recipes/recipes.module';
-import { AuthInterceptor } from './auth/auth-interceptor.service';
-import { RecipeService } from './recipes/recipe.service';
 import { AppRoutingModule } from './app-routing.module';
-import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -43,12 +41,10 @@ registerLocaleData(en);
     HttpClientModule,
     RecipeModule,
     ShoppingListModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    CoreModule
   ],
   providers: [
-    ShoppingListService,
-    RecipeService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent]
