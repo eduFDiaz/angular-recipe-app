@@ -50,22 +50,13 @@
           >
             Switch to {{ !isLoginMode ? "Login" : "Sign Up" }}
           </button>
-          <div
-            *ngIf="error != null"
-            class="alert alert-danger alert-dismissible fade show"
-            role="alert"
-            style="margin-top: 8px;"
-          >
-            <h4 class="alert-heading">An Error Ocurred!</h4>
-            <p style="word-wrap: break-word;">{{ error }}</p>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="alert"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
+          <div *ngIf="error != null" (click)="onClose()"  class="backdrop">
+              <div class="alert-box">
+                <p>{{ error }}</p>
+                <div class="alert-box-actions">
+                  <button (click)="onClose()" class="btn btn-primary">Close</button>
+                </div>
+              </div>
           </div>
         </div>
       </form>

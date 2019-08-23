@@ -17,8 +17,6 @@ export class AuthComponent {
   isLoginMode = true;
   isLoading = false;
   error: string = null;
-  email = 'fernandez9000@gmail.com';
-  password = '123456';
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -47,5 +45,9 @@ export class AuthComponent {
     });
 
     form.reset();
+  }
+
+  onClose() {
+    this.error = null;
   }
 }
