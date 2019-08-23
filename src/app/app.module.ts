@@ -39,8 +39,6 @@ registerLocaleData(en);
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MyMaterialModule,
-    NgZorroAntdModule,
     AppRoutingModule,
     NgxPopper,
     HttpClientModule,
