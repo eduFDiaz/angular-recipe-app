@@ -12,8 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { NgxPopper } from 'angular-popper';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MyMaterialModule } from './material';
-import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+import { NZ_I18N, en_US } from 'ng-zorro-antd';
 
 // config angular i18n //
 import { registerLocaleData } from '@angular/common';

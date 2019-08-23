@@ -5,6 +5,7 @@ import { RecipeStartComponent } from './recipe-start.component';
 describe('RecipeStartComponent', () => {
   let component: RecipeStartComponent;
   let fixture: ComponentFixture<RecipeStartComponent>;
+  let value: string;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
