@@ -21,10 +21,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private authService: AuthService) {}
 
   ngOnInit() {
+    //this.onFecthData();
     this.userSubscription = this.authService.user.subscribe(user => {
       this.isAuthenticated = !user ? false : true ;
     });
-    this.onFecthData();
   }
 
   onSelect(feature: string) {

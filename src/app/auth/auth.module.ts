@@ -5,6 +5,12 @@ import { RouterModule } from '@angular/router';
 
 import { AuthComponent } from './auth.component';
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
+import { RecipesComponent } from '../recipes/recipes.component';
+import { AuthGuard } from './auth.guard';
+import { RecipeStartComponent } from '../recipes/recipe-start/recipe-start.component';
+import { RecipeEditComponent } from '../recipes/recipe-edit/recipe-edit.component';
+import { RecipeDetailComponent } from '../recipes/recipe-detail/recipe-detail.component';
+import { RecipesResolverService } from '../recipes/recipes-resolver.service';
 
 @NgModule({
   declarations: [
@@ -13,11 +19,30 @@ import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinn
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forChild([
+      {
+        path: 'recipes', component: RecipesComponent, canActivate: [AuthGuard], children: [
+          { path: '', component: RecipeStartComponent },
+          { path: 'new', component: RecipeEditComponent },
+          {
+            path: ':id',
+            component: RecipeDetailComponent,
+            resolve: [RecipesResolverService]
+          },
+          {
+            path: ':id/edit',
+            component: RecipeEditComponent,
+            resolve: [RecipesResolverService]
+          },
+        ]
+      }
+    ])
   ],
   exports: [
     AuthComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    RouterModule
   ]
 })
 export class AuthModule { }

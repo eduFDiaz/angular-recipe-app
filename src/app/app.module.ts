@@ -1,20 +1,21 @@
-import { CoreModule } from './core.module';
-import { RecipeModule } from './recipes/recipes.module';
-import { AppRoutingModule } from './app-routing.module';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
 import { NgxPopper } from 'angular-popper';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_I18N, en_US } from 'ng-zorro-antd';
 
 // config angular i18n //
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
+import { CoreModule } from './core.module';
+import { RecipesModule } from './recipes/recipes.module';
+import { AppRoutingModule } from './app-routing.module';
+
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
 import { FormsModule } from '@angular/forms';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
@@ -26,7 +27,7 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     HeaderComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     FormsModule,
@@ -35,7 +36,7 @@ registerLocaleData(en);
     AppRoutingModule,
     NgxPopper,
     HttpClientModule,
-    RecipeModule,
+    RecipesModule,
     ShoppingListModule,
     SharedComponentsModule,
     AuthModule,
