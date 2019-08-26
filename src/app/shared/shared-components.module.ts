@@ -1,3 +1,4 @@
+import { SpinnerComponent } from './../myspinner/myspinner.component';
 import { NgModule } from '@angular/core';
 
 import { ShortenPipe } from './shorten.pipe';
@@ -9,13 +10,15 @@ import { MyMaterialModule } from './../material';
 
 @NgModule({
   declarations: [
-    ShortenPipe
+    ShortenPipe,
+    SpinnerComponent
   ],
   imports: [
     NgZorroAntdModule,
     MyMaterialModule
   ],
   exports: [
+    SpinnerComponent,
     ShortenPipe,
     NgZorroAntdModule,
     MyMaterialModule
