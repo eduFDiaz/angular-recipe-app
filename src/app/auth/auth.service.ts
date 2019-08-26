@@ -14,6 +14,8 @@ export interface AuthResponseData {
   registered?: boolean;
 }
 
+// The same instance of the service will be
+// provided to all the components of the app :)
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(private http: HttpClient,
@@ -21,7 +23,7 @@ export class AuthService {
 
   // This type of subject gives subscribers the chance of
   // reading its properties even when the subscription happened
-  // after they emited a new value with next
+  // after they emitted a new value with next
   user = new BehaviorSubject<User>(null);
 
   // Just to make the code more portable for the future
