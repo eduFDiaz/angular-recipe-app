@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
+import { environment } from 'src/environments/environment';
 
 export interface AuthResponseData {
   idToken: string;
@@ -27,7 +28,7 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
 
   // Just to make the code more portable for the future
-  API_KEY = 'AIzaSyB9VW0aJhlEHxlqjCWa9ynH9Kr-nBm1vAU';
+  API_KEY = environment.API_KEY;
   httpParams = new HttpParams().append('key', this.API_KEY);
 
   private tokenExpirationTimer: any;
