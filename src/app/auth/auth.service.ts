@@ -6,6 +6,10 @@ import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 import { environment } from 'src/environments/environment';
 
+import { Store } from '@ngrx/store';
+import * as fromAppReducer from 'src/app/store/app.reducer';
+import * as AuthActions from './store/auth.actions';
+
 export interface AuthResponseData {
   idToken: string;
   email: string;
@@ -19,8 +23,9 @@ export interface AuthResponseData {
 // provided to all the components of the app :)
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private http: HttpClient,
-              private router: Router) { }
+  constructor( private http: HttpClient,
+               private router: Router,
+               private store: Store<fromAppReducer.AppState>) { }
 
   // This type of subject gives subscribers the chance of
   // reading its properties even when the subscription happened
@@ -90,14 +95,21 @@ export class AuthService {
 
     if (loadedUsr.token) {
       // Only if the token is valid this user will be used
-      this.user.next(loadedUsr);
+      // this.user.next(loadedUsr);
       const expirationDuration = new Date(userData.__tokenExpirationDate).getTime() - new Date().getTime();
+      this.store.dispatch(new AuthActions.Login({
+        email: loadedUsr.email,
+        userId: loadedUsr.id,
+        token: loadedUsr.token,
+        expirationDate: new Date(userData.__tokenExpirationDate)
+      }));
       this.autoLogout(expirationDuration);
     }
   }
 
   logout() {
-    this.user.next(null);
+    // this.user.next(null);
+    this.store.dispatch(new AuthActions.Logout());
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
@@ -113,11 +125,22 @@ export class AuthService {
     }, expirationDuration);
   }
 
-  private handleAuthentication(email: string, localId: string, token: string, expiresIn: number) {
+  private handleAuthentication(
+    email: string,
+    localId: string,
+    token: string,
+    expiresIn: number) {
     // This function handles authentication changing the value of the user Subject
     const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
     const user = new User(email, localId, token, expirationDate);
-    this.user.next(user);
+    // this.user.next(user);
+    this.store.dispatch(
+      new AuthActions.Login({
+      email: email,
+      userId: localId,
+      token: token,
+      expirationDate: expirationDate
+    }));
     this.autoLogout(expiresIn * 1000);
 
     // Before saving to local storage the object has to be converted to a string
