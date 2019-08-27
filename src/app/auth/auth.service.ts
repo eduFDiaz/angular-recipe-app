@@ -30,7 +30,7 @@ export class AuthService {
   // This type of subject gives subscribers the chance of
   // reading its properties even when the subscription happened
   // after they emitted a new value with next
-  user = new BehaviorSubject<User>(null);
+  // user = new BehaviorSubject<User>(null);
 
   // Just to make the code more portable for the future
   API_KEY = environment.API_KEY;
