@@ -1,3 +1,4 @@
+import { appReducer } from './../../store/app.reducer';
 import * as ShoppingListActions from './../../shopping-list/store/shopping-list.actions';
 import { RecipeService } from './../recipe.service';
 
@@ -5,8 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-
-import * as fromShoppingList from 'src/app/shopping-list/store/shopping-list.reducer';
+import * as fromAppReducer from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -18,7 +18,7 @@ export class RecipeDetailComponent implements OnInit {
   id: number;
 
   constructor(private recipeService: RecipeService,
-              private store: Store<fromShoppingList.AppState>,
+              private store: Store<fromAppReducer.AppState>,
               private route: ActivatedRoute,
               private router: Router) { }
 

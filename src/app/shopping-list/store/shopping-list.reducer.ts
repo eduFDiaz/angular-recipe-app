@@ -7,11 +7,6 @@ export interface State {
   editedIngredientIndex: number;
 }
 
-
-export interface AppState {
-  shoppingList: State;
-}
-
 const initialState: State = {
   ingredients: [
     new Ingredient('Bread', 1),
@@ -66,16 +61,10 @@ export function shoppingListReducer(
     case ShoppingListActions.STOP_EDIT:
       return {
         ...state,
-        editedIngredientIndex: null,
-        editedIngredient: -1
+        editedIngredient: null,
+        editedIngredientIndex: -1
     };
     default:
       return state;
   }
 }
-/* case ShoppingListActions.DELETE_INGREDIENT:
-      return {
-        ...state,
-        ingredients: [...state.ingredients.slice(0, action.payload),
-        ...state.ingredients.slice(action.payload + 1)]
-      }; */
