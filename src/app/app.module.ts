@@ -21,6 +21,9 @@ import { FormsModule } from '@angular/forms';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedComponentsModule } from './shared/shared-components.module';
 import { AuthModule } from './auth/auth.module';
+
+import { StoreModule } from '@ngrx/store';
+import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
 registerLocaleData(en);
 
 @NgModule({
@@ -40,7 +43,8 @@ registerLocaleData(en);
     ShoppingListModule,
     SharedComponentsModule,
     AuthModule,
-    CoreModule
+    CoreModule,
+    StoreModule.forRoot({shoppingList: shoppingListReducer})
   ],
   providers: [// The rest of the services are provided in CoreModule
     { provide: NZ_I18N, useValue: en_US }

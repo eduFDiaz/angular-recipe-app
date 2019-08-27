@@ -1,9 +1,12 @@
+import * as ShoppingListActions from './../../shopping-list/store/shopping-list.actions';
 import { RecipeService } from './../recipe.service';
-import { Ingredient } from './../../shared/ingredient.model';
-import { ShoppingListService } from './../../shopping-list/shopping-list.service';
+
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import * as fromShoppingList from 'src/app/shopping-list/store/shopping-list.reducer';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -14,15 +17,15 @@ export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
 
-  constructor(private shoppingListService: ShoppingListService,
-              private recipeService: RecipeService,
+  constructor(private recipeService: RecipeService,
+              private store: Store<fromShoppingList.AppState>,
               private route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit() {
     // The + symbol is added to convert the string to a number
-    // because we are using the suscribe function to watch for changes in params
-    // angular will the clean up, althoug you need to implement the clean up
+    // because we are using the subscribe function to watch for changes in params
+    // angular will the clean up, although you need to implement the clean up
     // if you use your own Observables
     this.route.params
     .subscribe(
@@ -33,9 +36,8 @@ export class RecipeDetailComponent implements OnInit {
     );
   }
   onAddToShoppingList() {
-    this.recipe.ingredients.slice().forEach(ingredient => {
-      this.shoppingListService.addIngredient(ingredient);
-    });
+      this.store.dispatch(
+        new ShoppingListActions.AddIngredients(this.recipe.ingredients));
   }
 
   onEditRecipe() {
