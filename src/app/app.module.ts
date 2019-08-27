@@ -24,6 +24,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { StoreModule } from '@ngrx/store';
 import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+import { authReducer } from './auth/store/auth.reducer';
 registerLocaleData(en);
 
 @NgModule({
@@ -44,7 +45,10 @@ registerLocaleData(en);
     SharedComponentsModule,
     AuthModule,
     CoreModule,
-    StoreModule.forRoot({shoppingList: shoppingListReducer})
+    StoreModule.forRoot({
+      shoppingList: shoppingListReducer,
+      auth: authReducer
+    })
   ],
   providers: [// The rest of the services are provided in CoreModule
     { provide: NZ_I18N, useValue: en_US }
