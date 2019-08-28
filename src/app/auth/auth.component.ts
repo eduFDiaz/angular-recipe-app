@@ -39,20 +39,11 @@ ngOnInit() {
     const email = form.value.email;
     const password = form.value.password;
 
-    //let authObs: Observable<AuthResponseData>;
-
     if (this.isLoginMode) {
       this.store.dispatch(new AuthActions.LoginStart({email, password}));
+    } else {
+      this.store.dispatch(new AuthActions.SignUpStart({email, password}));
     }
-
-    /* authObs.subscribe(response => {
-      console.log(response);
-      this.isLoading = false;
-      this.router.navigate(['/recipes']);
-    }, errorRes => {
-      this.error = errorRes;
-      this.isLoading = false;
-    }); */
 
     form.reset();
   }
