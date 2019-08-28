@@ -38,41 +38,6 @@ export class AuthService {
 
   private tokenExpirationTimer: any;
 
-  signUp(email: string, password: string) {
-    // This method signs in the user. The first js object goes in the payload
-    // section (email, password, returnSecureToken). The second js object has
-    // the query params that go in url (?key=AIzaSyB9VW0aJhlEHxlqjCWa9ynH9Kr)
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp',
-      {
-        email,
-        password,
-        returnSecureToken: 'true'
-      },
-      {
-        params: this.httpParams,
-      }
-    ).pipe(catchError(this.handleError),
-      tap(resData => {
-        this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
-      }));
-  }
-
-  login(email: string, password: string) {
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword',
-      {
-        email,
-        password,
-        returnSecureToken: 'true'
-      },
-      {
-        params: this.httpParams,
-      }
-    ).pipe(catchError(this.handleError),
-      tap(resData => {
-        this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
-      }));
-  }
-
   autoLogin() {
     // Used this object because the date because of the date
     const userData: {
@@ -108,9 +73,6 @@ export class AuthService {
   }
 
   logout() {
-    // this.user.next(null);
-    this.store.dispatch(new AuthActions.Logout());
-    this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
@@ -145,35 +107,5 @@ export class AuthService {
 
     // Before saving to local storage the object has to be converted to a string
     localStorage.setItem('userData', JSON.stringify(user));
-  }
-
-  private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error has ocurred!';
-    if (!errorRes.error || !errorRes.error.error) {
-      return throwError(errorMessage);
-    }
-    switch (errorRes.error.error.message) {
-      case 'INVALID_PASSWORD':
-        errorMessage = 'The password entered is not valid';
-        break;
-      case 'EMAIL_NOT_FOUND':
-        errorMessage = 'No user is registered with the email entered';
-        break;
-      case 'EMAIL_EXISTS':
-        errorMessage = 'The email address is already in use by another account';
-        break;
-      case 'OPERATION_NOT_ALLOWED':
-        errorMessage = 'Password sign-in is disabled';
-        break;
-      case 'TOO_MANY_ATTEMPTS_TRY_LATER':
-        errorMessage = 'All requests from this device are blocked due to unusual activity. Try again later.';
-        break;
-      case 'USER_DISABLED':
-        errorMessage = 'The user account has been disabled by an administrator.';
-        break;
-      default:
-        break;
-    }
-    return throwError(errorMessage);
   }
 }

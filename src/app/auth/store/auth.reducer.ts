@@ -1,5 +1,6 @@
 import * as AuthActions from './auth.actions';
 import { User } from '../user.model';
+import { retry } from 'rxjs/operators';
 
 export interface State {
   user: User;
@@ -25,9 +26,12 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
     case AuthActions.LOGOUT:
       return {...state, user: null, loading: false};
     case AuthActions.LOGIN_START:
+    case AuthActions.SIGN_UP_START:
       return {...state, authError: null, loading: true};
     case AuthActions.AUTHENTICATE_FAIL:
       return {...state, user: null, authError: action.payload, loading: false };
+    case AuthActions.CLEAR_ERROR:
+      return {...state, authError: null};
     default:
       return state;
   }

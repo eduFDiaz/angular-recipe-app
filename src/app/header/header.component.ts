@@ -6,6 +6,7 @@ import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/cor
 
 import { Store } from '@ngrx/store';
 import * as fromAppReducer from 'src/app/store/app.reducer';
+import * as fromAuthActions from 'src/app/auth/store/auth.actions';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -32,9 +33,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isAuthenticated = !user ? false : true ;
       });
     this.onFecthData();
-    /* this.userSubscription = this.authService.user.subscribe(user => {
-      this.isAuthenticated = !user ? false : true ;
-    }); */
   }
 
   onSelect(feature: string) {
@@ -54,7 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this.authService.logout();
+    this.store.dispatch(new fromAuthActions.Logout());
   }
 
   ngOnDestroy(): void {
