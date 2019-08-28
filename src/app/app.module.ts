@@ -21,7 +21,9 @@ import { RecipesModule } from './recipes/recipes.module';
 import { SharedComponentsModule } from './shared/shared-components.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import * as fromAppReducer from './store/app.reducer';
-
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 // config angular i18n //
 registerLocaleData(en);
 
@@ -44,6 +46,8 @@ registerLocaleData(en);
     AuthModule,
     CoreModule,
     StoreModule.forRoot(fromAppReducer.appReducer),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
+    StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([AuthEffects])
   ],
   providers: [// The rest of the services are provided in CoreModule
