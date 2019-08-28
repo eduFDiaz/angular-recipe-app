@@ -1,6 +1,5 @@
-import * as AuthActions from './auth.actions';
 import { User } from '../user.model';
-import { retry } from 'rxjs/operators';
+import * as AuthActions from './auth.actions';
 
 export interface State {
   user: User;

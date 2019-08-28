@@ -1,12 +1,11 @@
-import { Subscription } from 'rxjs';
-import { DataStorageService } from './../shared/data-storage.service';
-
-import { Component, OnInit, OnDestroy } from '@angular/core';
-
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromAppReducer from 'src/app/store/app.reducer';
-import * as fromAuthActions from 'src/app/auth/store/auth.actions';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as fromAuthActions from 'src/app/auth/store/auth.actions';
+import * as fromAppReducer from 'src/app/store/app.reducer';
+
+import { DataStorageService } from './../shared/data-storage.service';
 
 @Component({
   selector: 'app-header',

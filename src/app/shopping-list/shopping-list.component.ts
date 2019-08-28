@@ -1,11 +1,10 @@
-import { Ingredient } from './../shared/ingredient.model';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-
-import { Subscription, Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-
-import * as fromAppReducer from 'src/app/store/app.reducer';
+import { Observable, Subscription } from 'rxjs';
 import * as ShoppingListActions from 'src/app/shopping-list/store/shopping-list.actions';
+import * as fromAppReducer from 'src/app/store/app.reducer';
+
+import { Ingredient } from './../shared/ingredient.model';
 
 @Component({
   selector: 'app-shopping-list',

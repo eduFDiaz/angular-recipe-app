@@ -1,14 +1,14 @@
-import { AuthService } from './../auth.service';
-import { Router } from '@angular/router';
-import { Actions, ofType, Effect } from '@ngrx/effects';
-import { switchMap, catchError, map, tap } from 'rxjs/operators';
-import { HttpParams, HttpClient } from '@angular/common/http';
-import { throwError, of } from 'rxjs';
-
-import { environment } from 'src/environments/environment';
-import * as AuthActions from './auth.actions';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+
 import { User } from '../user.model';
+import { AuthService } from './../auth.service';
+import * as AuthActions from './auth.actions';
 
 export interface AuthResponseData {
   idToken: string;
@@ -22,9 +22,9 @@ export interface AuthResponseData {
 @Injectable()
 export class AuthEffects {
   constructor(private actions$: Actions,
-    private http: HttpClient,
-    private router: Router,
-    private authService: AuthService) { }
+              private http: HttpClient,
+              private router: Router,
+              private authService: AuthService) { }
 
   // Just to make the code more portable for the future
   API_KEY = environment.API_KEY;

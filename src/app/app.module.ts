@@ -1,31 +1,28 @@
-import { NgxPopper } from 'angular-popper';
+import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import en from '@angular/common/locales/en';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NZ_I18N, en_US } from 'ng-zorro-antd';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { NgxPopper } from 'angular-popper';
+import { en_US, NZ_I18N } from 'ng-zorro-antd';
+import { AuthEffects } from 'src/app/auth/store/auth.effects';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AuthModule } from './auth/auth.module';
+import { CoreModule } from './core.module';
+import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
+import { HeaderComponent } from './header/header.component';
+import { RecipesModule } from './recipes/recipes.module';
+import { SharedComponentsModule } from './shared/shared-components.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import * as fromAppReducer from './store/app.reducer';
 
 // config angular i18n //
-import { registerLocaleData } from '@angular/common';
-import en from '@angular/common/locales/en';
-
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { CoreModule } from './core.module';
-import { RecipesModule } from './recipes/recipes.module';
-import { AppRoutingModule } from './app-routing.module';
-
-import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
-import { FormsModule } from '@angular/forms';
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
-import { SharedComponentsModule } from './shared/shared-components.module';
-import { AuthModule } from './auth/auth.module';
-
-import { StoreModule } from '@ngrx/store';
-import * as fromAppReducer from './store/app.reducer';
-import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from 'src/app/auth/store/auth.effects';
 registerLocaleData(en);
 
 @NgModule({

@@ -1,10 +1,8 @@
-import { AuthService } from './auth.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-
 import { Store } from '@ngrx/store';
 import * as fromAppReducer from 'src/app/store/app.reducer';
+
 import * as AuthActions from './store/auth.actions';
 
 @Component({
@@ -13,9 +11,7 @@ import * as AuthActions from './store/auth.actions';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit, OnDestroy {
-  constructor(private authService: AuthService,
-              private router: Router,
-              private store: Store<fromAppReducer.AppState>) { }
+  constructor(private store: Store<fromAppReducer.AppState>) { }
 
   isLoginMode = true;
   isLoading = false;

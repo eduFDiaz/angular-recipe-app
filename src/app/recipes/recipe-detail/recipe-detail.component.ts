@@ -1,12 +1,11 @@
-import { appReducer } from './../../store/app.reducer';
-import * as ShoppingListActions from './../../shopping-list/store/shopping-list.actions';
-import { RecipeService } from './../recipe.service';
-
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from '../recipe.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromAppReducer from 'src/app/store/app.reducer';
+
+import { Recipe } from '../recipe.model';
+import * as ShoppingListActions from './../../shopping-list/store/shopping-list.actions';
+import { RecipeService } from './../recipe.service';
 
 @Component({
   selector: 'app-recipe-detail',
