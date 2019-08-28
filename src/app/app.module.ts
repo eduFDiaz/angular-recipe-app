@@ -23,7 +23,9 @@ import { SharedComponentsModule } from './shared/shared-components.module';
 import { AuthModule } from './auth/auth.module';
 
 import { StoreModule } from '@ngrx/store';
-import * as fromApp from './store/app.reducer';
+import * as fromAppReducer from './store/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from 'src/app/auth/store/auth.effects';
 registerLocaleData(en);
 
 @NgModule({
@@ -44,7 +46,8 @@ registerLocaleData(en);
     SharedComponentsModule,
     AuthModule,
     CoreModule,
-    StoreModule.forRoot(fromApp.appReducer)
+    StoreModule.forRoot(fromAppReducer.appReducer),
+    EffectsModule.forRoot([AuthEffects])
   ],
   providers: [// The rest of the services are provided in CoreModule
     { provide: NZ_I18N, useValue: en_US }
