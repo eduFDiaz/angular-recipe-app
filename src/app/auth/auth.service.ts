@@ -97,7 +97,7 @@ export class AuthService {
       // Only if the token is valid this user will be used
       // this.user.next(loadedUsr);
       const expirationDuration = new Date(userData.__tokenExpirationDate).getTime() - new Date().getTime();
-      this.store.dispatch(new AuthActions.Login({
+      this.store.dispatch(new AuthActions.AuthenticateSuccess({
         email: loadedUsr.email,
         userId: loadedUsr.id,
         token: loadedUsr.token,
@@ -135,7 +135,7 @@ export class AuthService {
     const user = new User(email, localId, token, expirationDate);
     // this.user.next(user);
     this.store.dispatch(
-      new AuthActions.Login({
+      new AuthActions.AuthenticateSuccess({
       email: email,
       userId: localId,
       token: token,
