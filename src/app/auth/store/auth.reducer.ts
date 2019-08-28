@@ -24,7 +24,7 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
         action.payload.expirationDate);
       return { ...state, user: newUser, authError: null, loading: false};
     case AuthActions.LOGOUT:
-      return {...state, user: null, loading: false};
+      return {...state, user: null};
     case AuthActions.LOGIN_START:
     case AuthActions.SIGN_UP_START:
       return {...state, authError: null, loading: true};

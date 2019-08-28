@@ -1,8 +1,7 @@
 import { Subscription } from 'rxjs';
-import { AuthService } from './../auth/auth.service';
 import { DataStorageService } from './../shared/data-storage.service';
 
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import * as fromAppReducer from 'src/app/store/app.reducer';
@@ -17,13 +16,11 @@ import { map } from 'rxjs/operators';
 
 export class HeaderComponent implements OnInit, OnDestroy {
   // The event will be accessible from outside (app parent component)
-  @Output() featureSelected = new EventEmitter<string>();
   private userSubscription: Subscription;
   isAuthenticated = false;
 
   constructor(
     private dataStorageService: DataStorageService,
-    private authService: AuthService,
     private store: Store<fromAppReducer.AppState>) {}
 
   ngOnInit() {
@@ -33,12 +30,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isAuthenticated = !user ? false : true ;
       });
     this.onFecthData();
-  }
-
-  onSelect(feature: string) {
-    // featureSelected will emit either those two strings
-    // that are given at the links at the bar
-    this.featureSelected.emit(feature);
   }
 
   onFecthData() {

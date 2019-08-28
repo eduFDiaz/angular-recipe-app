@@ -1,8 +1,6 @@
-import { Observable, Subject } from 'rxjs';
-import { AuthService, AuthResponseData } from './auth.service';
+import { AuthService } from './auth.service';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User } from './user.model';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
