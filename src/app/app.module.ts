@@ -24,6 +24,7 @@ import * as fromAppReducer from './store/app.reducer';
 import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { RecipesEffects } from './recipes/store/recipes.effects';
 // config angular i18n //
 registerLocaleData(en);
 
@@ -48,7 +49,7 @@ registerLocaleData(en);
     StoreModule.forRoot(fromAppReducer.appReducer),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects, RecipesEffects])
   ],
   providers: [// The rest of the services are provided in CoreModule
     { provide: NZ_I18N, useValue: en_US }

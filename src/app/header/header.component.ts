@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import * as fromAuthActions from 'src/app/auth/store/auth.actions';
 import * as fromAppReducer from 'src/app/store/app.reducer';
 
+import * as fromRecipesActions from 'src/app/recipes/store/recipes.actions';
 import { DataStorageService } from './../shared/data-storage.service';
 
 @Component({
@@ -28,12 +29,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     .subscribe(user => {
       this.isAuthenticated = !user ? false : true ;
       });
-    this.onFecthData();
   }
 
   onFecthData() {
     console.log('[Header] Fetching data:');
-    this.dataStorageService.fetchRecipes().subscribe();
+    this.store.dispatch(new fromRecipesActions.FetchRecipes());
   }
 
   onSaveData() {

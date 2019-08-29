@@ -1,3 +1,4 @@
+import { Action } from '@ngrx/store';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -85,9 +86,12 @@ export class AuthEffects {
 
   @Effect({ dispatch: false })
   authRedirect = this.actions$.pipe(ofType(AuthActions.AUTHENTICATE_SUCCESS),
-    tap(() => {
+    tap(( (authSuccessAction: AuthActions.AuthenticateSuccess) => {
+      if (authSuccessAction.payload.redirect) {
       this.router.navigate(['/']);
-    }));
+      }
+    }
+    )));
 
   @Effect({ dispatch: false })
   authLogout = this.actions$.pipe(ofType(AuthActions.LOGOUT), tap(() => {
@@ -116,7 +120,7 @@ export class AuthEffects {
         userData.email,
         userData.id,
         userData._token,
-        new Date(userData.__tokenExpirationDate)
+        new Date(userData.__tokenExpirationDate),
       );
 
       if (loadedUsr.token) {
@@ -127,7 +131,8 @@ export class AuthEffects {
           email: loadedUsr.email,
           userId: loadedUsr.id,
           token: loadedUsr.token,
-          expirationDate: new Date(userData.__tokenExpirationDate)
+          expirationDate: new Date(userData.__tokenExpirationDate),
+          redirect: false
         });
       }
       return { type: 'DUMMY' };
@@ -135,7 +140,7 @@ export class AuthEffects {
   );
 
   handleAuthentication = (resData: AuthResponseData) => {
-    const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
+    const expirationDate  = new Date(new Date().getTime() + +resData.expiresIn * 1000);
     const user = new User(resData.email, resData.localId, resData.idToken, expirationDate);
     this.authService.setLogoutTimer(+resData.expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
@@ -144,7 +149,8 @@ export class AuthEffects {
       email: resData.email,
       userId: resData.localId,
       token: resData.idToken,
-      expirationDate
+      expirationDate,
+      redirect: true
     });
   }
 

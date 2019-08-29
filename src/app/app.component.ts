@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromAppReducer from './store/app.reducer';
 import * as fromAuthActions from './auth/store/auth.actions';
-
+import * as fromRecipesActions from 'src/app/recipes/store/recipes.actions';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,5 +14,6 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<fromAppReducer.AppState>) {}
   ngOnInit(): void {
     this.store.dispatch(new fromAuthActions.AutoLogin());
+    this.store.dispatch(new fromRecipesActions.FetchRecipes());
   }
 }
