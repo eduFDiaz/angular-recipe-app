@@ -19,13 +19,13 @@ export class DataStorageService {
   }
 
   storeRecipes() {
-    const recipes = this.recipeService.getRecipes();
+    /* const recipes = this.store.getRecipes();
     this.http.put('https://recipe-book-api-9afeb.firebaseio.com/recipes.json', recipes)
       .subscribe(response => {
         console.log(response);
       }, error => {
         console.log(error);
-      });
+      }); */
   }
 
   fetchRecipes() {

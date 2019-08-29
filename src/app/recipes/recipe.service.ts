@@ -6,19 +6,19 @@ export class RecipeService {
 
   private recipes: Recipe[] = [];
 
-  getRecipes() {
+  /* getRecipes() {
     // Returns all the recipes, we used Slice returns
     // an exact copy of the array, not a reference
     return this.recipes.slice();
-  }
+  } */
 
-  getRecipe(index: number) {
+  /* getRecipe(index: number) {
     // Returns one recipe, we used Slice returns
     // an exact copy of the array, not a reference
     return this.recipes[index];
-  }
+  } */
 
-  addRecipe(recipe: Recipe) {
+ /*  addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
     this.recipesChanged.next(this.recipes.slice());
   }
@@ -31,10 +31,10 @@ export class RecipeService {
   updateRecipe(newRecipe: Recipe, index: number) {
     this.recipes[index] = newRecipe;
     this.recipesChanged.next(this.recipes.slice());
-  }
+  } */
 
-  setRecipes(recipes: Recipe[]) {
+  /* setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
     this.recipesChanged.next(this.recipes.slice());
-  }
+  } */
 }
