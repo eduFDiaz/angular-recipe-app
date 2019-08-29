@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import * as fromRecipes from 'src/app/recipes/store/recipes.actions';
 import * as fromAppReducer from 'src/app/store/app.reducer';
 
 import { Recipe } from '../recipe.model';
 import * as ShoppingListActions from './../../shopping-list/store/shopping-list.actions';
-import { RecipeService } from './../recipe.service';
-import * as fromRecipes from 'src/app/recipes/store/recipes.actions';
-import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -18,8 +17,7 @@ export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
 
-  constructor(private recipeService: RecipeService,
-              private store: Store<fromAppReducer.AppState>,
+  constructor(private store: Store<fromAppReducer.AppState>,
               private route: ActivatedRoute,
               private router: Router) { }
 

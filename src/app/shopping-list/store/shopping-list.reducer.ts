@@ -10,10 +10,7 @@ export interface State {
 const initialState: State = {
   ingredients: [
     new Ingredient('Bread', 1),
-    new Ingredient('Mayo', 2),
-    new Ingredient('Carrots', 1),
-    new Ingredient('Apples', 2),
-    new Ingredient('Lamb', 5),
+    new Ingredient('Mayo', 2)
   ],
   editedIngredient: null,
   editedIngredientIndex: -1

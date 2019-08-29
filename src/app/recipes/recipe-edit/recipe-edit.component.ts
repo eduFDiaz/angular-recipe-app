@@ -1,14 +1,11 @@
-import { Recipe } from './../recipe.model';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
-import { RecipeService } from './../recipe.service';
 import { Store } from '@ngrx/store';
-import * as fromAppReducer from 'src/app/store/app.reducer';
-import * as fromRecipes from 'src/app/recipes/store/recipes.actions';
-import { map, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import * as fromRecipes from 'src/app/recipes/store/recipes.actions';
+import * as fromAppReducer from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'app-recipe-edit',

@@ -14,6 +14,6 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<fromAppReducer.AppState>) {}
   ngOnInit(): void {
     this.store.dispatch(new fromAuthActions.AutoLogin());
-    // this.store.dispatch(new fromRecipesActions.FetchRecipes());
+    this.store.dispatch(new fromRecipesActions.FetchRecipes());
   }
 }

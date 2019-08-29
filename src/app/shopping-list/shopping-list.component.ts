@@ -24,6 +24,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   onEditItem(index: number) {
+    console.log('onEditItem with index: ', index);
     this.store.dispatch(new ShoppingListActions.StartEdit(index));
   }
 
