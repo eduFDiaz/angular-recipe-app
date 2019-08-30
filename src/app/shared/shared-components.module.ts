@@ -7,6 +7,8 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 
 import { MyMaterialModule } from './../material';
 
+import {MatGridListModule} from '@angular/material/grid-list';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { MyMaterialModule } from './../material';
     SpinnerComponent,
     ShortenPipe,
     NgZorroAntdModule,
-    MyMaterialModule
+    MyMaterialModule,
+    MatGridListModule
   ]
 })
 export class SharedComponentsModule {

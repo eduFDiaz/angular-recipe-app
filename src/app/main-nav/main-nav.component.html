@@ -1,0 +1,80 @@
+<!-- <mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/']">Recipes</a>
+      <a mat-list-item [routerLink]="['/shopping-list']">Shopping List</a>
+      <a mat-list-item [routerLink]="['/404']" >Error</a>
+    </mat-nav-list>
+    <div *ngIf="isAuthenticated">
+    <mat-toolbar>Hit the database!</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item (click)="onSaveData()">Save Data</a>
+      <a mat-list-item (click)="onFecthData()">Fetch Data</a>
+    </mat-nav-list>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Recipe Book</span>
+      <span class="spacer"></span>
+        <a  *ngIf="!isAuthenticated" mat-list-item [routerLink]="['/auth']"
+        style="color: white; text-decoration: none;" >Login</a>
+        <a  *ngIf="isAuthenticated" mat-list-item (click)="onLogout()">Logout</a>
+    </mat-toolbar>
+    <ng-content>
+    </ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container> -->
+<mat-drawer-container class="container" autosize>
+    <mat-drawer #drawer class="sidenav">
+        <button color="primary" mat-button routerLink="/recipes">Recipes</button>
+        <button color="primary" mat-button routerLink="/shopping-list">Shopping List</button>
+        <button color="primary" mat-button routerLink="/404">Error page</button>
+    </mat-drawer>
+    <div class="sidenav-content">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <button mat-icon-button (click)="drawer.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+
+                <span>Recipe Book</span>
+                <span class="spacer"></span>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item [disabled]="!isAuthenticated">
+                        <mat-icon>publish</mat-icon>
+                        <span>Save</span>
+                    </button>
+                    <button mat-menu-item [disabled]="!isAuthenticated">
+                        <mat-icon>file_download</mat-icon>
+                        <span>Fetch</span>
+                    </button>
+                    <button mat-menu-item *ngIf="!isAuthenticated" routerLink='/auth'>
+                        <mat-icon>lock_open</mat-icon>
+                        <span>Login</span>
+                    </button>
+                    <button mat-menu-item *ngIf="isAuthenticated" (click)="onLogout()">
+                        <mat-icon>logout</mat-icon>
+                        <span>Logout</span>
+                    </button>
+                </mat-menu>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </div>
+</mat-drawer-container>
